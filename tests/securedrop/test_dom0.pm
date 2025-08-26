@@ -30,8 +30,7 @@ sub run {
     # Setup testing requirements and run tests
     assert_script_run('rpm -q python3-pytest || sudo qubes-dom0-update -y python3-pytest', timeout => 300);
     assert_script_run('rpm -q python3-pytest-cov || sudo qubes-dom0-update -y python3-pytest-cov', timeout => 300);
-    script_run('ln -s /usr/share/securedrop-workstation-dom0-config/config.json /home/user/securedrop-workstation/config.json');
-    script_run('ln -s /usr/share/securedrop-workstation-dom0-config/sd-journalist.sec /home/user/securedrop-workstation/sd-journalist.sec');
+
 
     # Force-update whonix before running tests
     # See https://github.com/freedomofpress/securedrop-workstation/issues/1333
