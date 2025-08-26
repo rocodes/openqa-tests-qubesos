@@ -31,15 +31,15 @@ sub download_repo {
 };
 
 sub install_dev {
-    download_repo;
-
+    download_repo();
     build_rpm();
+    assert_script_run('mv /tmp/sdw.rpm securedrop-workstation/rpm-build/RPMS/');
     assert_script_run('cd securedrop-workstation && make bootstrap-dev');
 };
 
 
 sub install_staging {
-    download_repo;
+    download_repo();
 
     # `make staging` installs from yum-test
     assert_script_run('cd securedrop-workstation && make bootstrap-staging');
@@ -76,7 +76,7 @@ sub build_rpm {
     assert_script_run("ls");
 
     assert_script_run('qvm-run -p sd-dev "cd securedrop-workstation && make build-rpm"', timeout => 1000);
-    assert_script_run("qvm-run --pass-io sd-dev 'cat /home/user/securedrop-workstation/rpm-build/RPMS/noarch/*.rpm' > /home/user/securedrop-workstation/rpm-build/RPMS/noarch/sdw.rpm");
+    assert_script_run("qvm-run --pass-io sd-dev 'cat /home/user/securedrop-workstation/rpm-build/RPMS/noarch/*.rpm' > /tmp/sdw.rpm");
 };
 
 
